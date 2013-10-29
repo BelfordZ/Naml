@@ -2,6 +2,8 @@ Naml
 ====
 
 Node API Modeling Language
+
+Config.naml
 ```
 title: BlockBusted Video Rental
 useVersionedUrl = true
@@ -17,29 +19,35 @@ models:
     
   Customers:
   
+```
 
+api.naml
+```
 /Movies:
-  get:
-    queryParameters:
+  Get:
+    params:
       genre:
-        description: filter the songs by genre
-    post:
-      /{songId}:
-        get:
-          body:
-            application/json:
-              schema: |
-                { "$schema": "http://json-schema.org/schema",
-                  "type": "object",
-                  "description": "The canonical song representation",
-                  "properties": {
-                    "title":  { "type": "string" },
-                    "artist": { "type": "string" }
-                  }
-                  "required": [ "title", "artist" ]
-                }
-            application/xml:
-    delete:
-      description: |
-        This method will *delete* an **individual song**
+        description: Find movies for rent
+  Post:
+    /{MovieId}:
+      permissions: ["Customer", "Admin"]
+      
+      Get:
+        description: Returning the specified movie
+        body:
+          application/json: controller.returnMovie
+      
+      Post:
+        params:
+          creditcard:
+            description: credit card number to charge for a rental.
+            validate: CreditCard
+        body:
+          application/json: controller.rentMovie
+          
+      Delete:
+        description: Remove video from stock
+        permission: ["Admin"]
+        application/json: controller.removeForRent
+          
 ```

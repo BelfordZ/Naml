@@ -28,26 +28,26 @@ api.naml
     params:
       genre:
         description: Find movies for rent
+    responseHandler: controller.find
+    
   Post:
     /{MovieId}:
       permissions: ["Customer", "Admin"]
       
       Get:
         description: Returning the specified movie
-        body:
-          application/json: controller.returnMovie
+        responseHandler: controller.returnMovie
       
       Post:
         params:
           creditcard:
             description: credit card number to charge for a rental.
             validate: CreditCard
-        body:
-          application/json: controller.rentMovie
+        responseHandler controller.rentMovie
           
       Delete:
         description: Remove video from stock
         permission: ["Admin"]
-        application/json: controller.removeForRent
+        responseHandler: controller.remove
           
 ```

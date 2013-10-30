@@ -5,9 +5,9 @@ Node API Modeling Language
 
 Config.naml
 ```
-title: BlockBusted Video Rental
-useVersionedUrl = true
-version = "v1"
+title: "BlockBusted Video Rental"
+useVersionedUrl: true
+version: "v1"
 
 validator: "lib/utils/validator"
 permissions: "lib/permissions"

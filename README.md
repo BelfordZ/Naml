@@ -24,28 +24,28 @@ models:
 api.naml
 ```
 /Movies:
-  Get:
+  GET:
     params:
       genre:
         description: "Find movies for rent"
     responseHandler: controller.find
     
-  Post:
+  POST:
     /{MovieId}:
       permissions: ["Customer", "Admin"]
       
-      Get:
+      GET:
         description: "Returning the specified movie"
         responseHandler: controller.returnMovie
       
-      Post:
+      POST:
         params:
           creditcard:
             description: "credit card number to charge for a rental."
             validate: CreditCard
         responseHandler controller.rentMovie
           
-      Delete:
+      DELETE:
         description: "Remove video from stock"
         permission: ["Admin"]
         responseHandler: controller.remove
@@ -55,8 +55,8 @@ api.naml
 permissions.naml
 ```
 Movie:
-  Get: ["Customer", "Admin", "Guest"]
-  Post:
+  GET: ["Customer", "Admin", "Guest"]
+  POST:
     "/{id}":
-      Get:
+      GET:
 ```

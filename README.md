@@ -3,6 +3,10 @@ Naml
 
 Node API Modeling Language
 
+Inspiration from projects like 
+ - http://raml.org/
+ - https://github.com/intridea/grape
+
 Config.naml
 ```
 title: "BlockBusted Video Rental"

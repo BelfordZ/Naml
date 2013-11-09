@@ -18,8 +18,19 @@ permissions: "lib/permissions"
 
 controllers: "lib/controllers"
 
-models:
-  Movies:
+Validators:
+  String:
+    length
+
+Models:
+  Movie:
+    find
+    return
+    rent
+    remove
+    Validators:
+      title
+      
     
   Customers:
   
@@ -27,40 +38,33 @@ models:
 
 api.naml
 ```
-/Movies:
+/Movie:
   GET:
     params:
-      genre:
-        description: "Find movies for rent"
-    responseHandler: controller.find
+      title: # defines some properties and actions that will act on this param.
+        description: "a title being searched"  # For api documentation generation.
+        validate: Validators.Movie.title   # Will look for a property 'catagoryName 
+                                           #  in your defined validators module'
+      catagory_name:
+        description: "a catagory to look for"
+        normalize: Normalizers.String.toLower, Normalizers.String.escape
+        validate: Validators.String.length [3..14]
+    Controller: controller.find
+    View: Views.Movie.find # render the callback result with the specified template/engine
   
-  /{MovieId}:
+  /{MovieId}: # for example, /Movies/23142...
+    GET:
+      description: "Returning the specified movie"
+      controller: Controllers.Movie.return
+    
     POST:
-        permissions: ["Customer", "Admin"]
+      params:
+        creditcard:
+          description: "credit card number to charge for a rental."
+          validate: Validators.String.CreditCard
+      controller: Controllers.Movie.rent
         
-        GET:
-          description: "Returning the specified movie"
-          responseHandler: controller.returnMovie
-        
-        POST:
-          params:
-            creditcard:
-              description: "credit card number to charge for a rental."
-              validate: CreditCard
-          responseHandler controller.rentMovie
+    DELETE:
+      description: "Remove video from stock"
+      controller: Controller.Movie.remove
             
-        DELETE:
-          description: "Remove video from stock"
-          permission: ["Admin"]
-          responseHandler: controller.remove
-            
-```
-
-permissions.naml
-```
-Movie:
-  GET: ["Customer", "Admin", "Guest"]
-  POST:
-    "/{id}":
-      GET:
-```

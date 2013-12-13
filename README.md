@@ -13,27 +13,12 @@ title: "BlockBusted Video Rental"
 useVersionedUrl: true
 version: "v1"
 
-validator: "lib/utils/validator"
-permissions: "lib/permissions"
+validator: "lib/utils/validator/"
+permissions: "lib/permissions/"
 
-controllers: "lib/controllers"
+controllers: "lib/controllers/"
 
-Validators:
-  String:
-    length
-
-Models:
-  Movie:
-    find
-    return
-    rent
-    remove
-    Validators:
-      title
-      
-    
-  Customers:
-  
+Validators: "lib/utils/validators/"
 ```
 
 api.naml
